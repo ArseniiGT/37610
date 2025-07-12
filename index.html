@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра: Массив или не массив</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question" id="question">Загрузка...</div>
+        <div class="buttons">
+            <button onclick="answer(true)">Массив</button>
+            <button onclick="answer(false)">Не массив</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { text: "Список покупок", isArray: true },
+            { text: "Школьные предметы", isArray: true },
+            { text: "Собака", isArray: false },
+            { text: "Члены семьи", isArray: true },
+            { text: "Количество дней в месяце", isArray: false },
+            { text: "Имена друзей", isArray: true },
+            { text: "Цвета радуги", isArray: true },
+            { text: "Страны мира", isArray: true },
+            { text: "Число 3", isArray: false },
+            { text: "Фрукты в корзине", isArray: true },
+            { text: "Машины на парковке", isArray: true },
+            { text: "Температура воды", isArray: false },
+            { text: "Сезоны года", isArray: true },
+            { text: "Количество книг в библиотеке", isArray: false },
+            { text: "Марки автомобилей", isArray: true },
+            { text: "Текущий год", isArray: false },
+            { text: "Типы домашних животных", isArray: true },
+            { text: "Планеты солнечной системы", isArray: true },
+            { text: "Музыкальные инструменты", isArray: true },
+            { text: "Оценка по математике", isArray: false }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                document.getElementById("question").innerText = questions[currentQuestionIndex].text;
+                document.getElementById("result").innerText = "";
+            } else {
+                document.getElementById("question").innerText = "Игра завершена!";
+                document.getElementById("result").innerText = `Ваш счет: ${score} из ${questions.length}`;
+                document.querySelector(".buttons").style.display = "none";
+            }
+        }
+
+        function answer(isArray) {
+            if (questions[currentQuestionIndex].isArray === isArray) {
+                score++;
+                document.getElementById("result").innerText = "Правильно!";
+            } else {
+                document.getElementById("result").innerText = "Неправильно!";
+            }
+            currentQuestionIndex++;
+            setTimeout(loadQuestion, 1000);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
